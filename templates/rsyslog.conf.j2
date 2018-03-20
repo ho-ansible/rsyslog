@@ -1,8 +1,10 @@
-# /etc/rsyslog.conf
+## /etc/rsyslog.conf
+## Uploads logs remotely to {{ rsyslog_server }}
+## {{ ansible_managed }}
 
 $ModLoad imuxsock
 $ModLoad imklog
 $ModLoad omrelp
 
-*.*     -/var/log/messages;RSYSLOG_TraditionalFileFormat
-*.*     :omrelp:{{ log_server }}:{{ log_port }}
+*.*     -{{ rsyslog_file }};RSYSLOG_TraditionalFileFormat
+*.*     :omrelp:{{ rsyslog_server }}:{{ rsyslog_port }}

@@ -1,5 +1,5 @@
-##
 ## /etc/rsyslog.conf
+## Server receives remote logs
 ## {{ ansible_managed }}
 
 $ModLoad imuxsock		# local system logging
@@ -9,7 +9,7 @@ $ModLoad imudp			# UDP syslog reception from sysklogd
 $UDPServerRun 514
 
 $ModLoad imrelp			# rsyslog-specific reliable transport
-$InputRELPServerRun 2514
+$InputRELPServerRun {{ rsyslog_port }}
 
 $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 
@@ -45,4 +45,4 @@ auth,authpriv.*			/var/log/auth.log
 & ~
 
 # Default
-*.*				-/var/log/messages
+*.*				-{{ rsyslog_file }}
