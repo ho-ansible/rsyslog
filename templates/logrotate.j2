@@ -2,7 +2,7 @@
 ## logfiles defined in /etc/rsyslog.conf
 ## {{ ansible_managed }}
 
-{% if 'log' in group_names %}
+{% if rsyslog_server_group in group_names %}
 {% for tag in rsyslog_tags | union(keys(rsyslog_rules) %}
 /var/log/{{ tag }}.log
 {% endfor %}

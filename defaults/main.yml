@@ -1,6 +1,7 @@
 ---
 rsyslog_server: 127.0.0.1
 rsyslog_port: 2514
+rsyslog_server_group: log
 
 rsyslog_file: /var/log/messages
 rsyslog_tags: []
