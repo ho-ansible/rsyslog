@@ -3,14 +3,11 @@
 ## {{ ansible_managed }}
 
 {% if 'log' in group_names %}
-/var/log/debug
-/var/log/cron.log
-/var/log/mail.log
-/var/log/auth.log
-/var/log/tinc.log
-/var/log/dhcpcd.log
+{% for tag in rsyslog_tags | union(keys(rsyslog_rules) %}
+/var/log/{{ tag }}.log
+{% endfor %}
 {% endif %}
-/var/log/messages
+{{ rsyslog_file }}
 {
   sharedscripts
   postrotate

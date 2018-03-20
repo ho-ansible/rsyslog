@@ -28,21 +28,14 @@ $WorkDirectory /var/spool/rsyslog	# Location of spool files
 
 # Output Rules
 
-:syslogtag, contains, "tinc"	/var/log/tinc.log
+{% for tag in rsyslog_tags %}
+:syslogtag, contains, "{{ tag }}"	/var/log/{{ tag }}.log
 & ~
-:syslogtag, contains, "dhcpcd"	/var/log/dhcpcd.log
-& ~
-:syslogtag, contains, "burp"	/var/log/burp.log
-& ~
+{% endfor %}
 
-cron.*				-/var/log/cron.log
-& ~
-mail.*				-/var/log/mail.log
-& ~
-auth,authpriv.*			/var/log/auth.log
-& ~
-*.=debug			-/var/log/debug
-& ~
+{% for tag, rule in rsyslog_rules.iteritems() %}
+{{ rule }}			/var/log/{{ tag }}.log
+{% endfor %}
 
 # Default
 *.*				-{{ rsyslog_file }}
