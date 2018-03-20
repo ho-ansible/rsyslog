@@ -2,18 +2,27 @@
 
 - name: rsyslog | packages
   tags:
-  - package
+    - package
   package:
     name: "{{ item }}"
-    state: latest
   with_items:
   - rsyslog
   - rsyslog-relp
 
-- include_tasks: client.yml
-  when: '"log" not in group_names'
-- include_tasks: server.yml
-  when: '"log" in group_names'
+- name: rsyslog | config
+  tags:
+    - config
+  template:
+    src: "{{ 'log' in group_names | ternary('server', 'rsyslog') }}.conf.j2"
+    dest: /etc/rsyslog.conf
+  notify: restart rsyslog
+
+- name: rsyslog | logrotate config
+  tags:
+    - log
+  template:
+    src: logrotate.j2
+    dest: /etc/logrotate.d/rsyslog
 
 - name: rsyslog | service
   tags:
