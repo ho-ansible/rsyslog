@@ -3,7 +3,7 @@
 ## {{ ansible_managed }}
 
 {% if rsyslog_server_group in group_names %}
-{% for tag in rsyslog_tags | union(keys(rsyslog_rules)) %}
+{% for tag in rsyslog_tags | union(rsyslog_rules.keys()) %}
 /var/log/{{ tag }}.log
 {% endfor %}
 {% endif %}
