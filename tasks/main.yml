@@ -4,10 +4,9 @@
   tags:
     - package
   package:
-    name: "{{ item }}"
-  with_items:
-  - rsyslog
-  - rsyslog-relp
+    name: 
+      - rsyslog
+      - rsyslog-relp
 
 - name: rsyslog | config
   tags:
