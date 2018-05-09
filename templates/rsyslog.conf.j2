@@ -2,10 +2,9 @@
 ## Uploads logs remotely to {{ rsyslog_server }}
 ## {{ ansible_managed }}
 
-module(load="imuxsock")
-module(load="imklog")
-module(load="omrelp")
+module(load="imklog")	# kernel ring buffer
+module(load="imuxsock")	# /run/systemd/journal/syslog
+module(load="omrelp")	# rsyslog reliable transport
 
-*.*     -{{ rsyslog_file }};RSYSLOG_TraditionalFileFormat
-
+action(type="omfile" file="{{ rsyslog_file }}")
 action(type="omrelp" target="{{ rsyslog_server }}" port="{{ rsyslog_port }}")
