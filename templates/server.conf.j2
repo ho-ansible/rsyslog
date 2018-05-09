@@ -2,17 +2,12 @@
 ## Server receives remote logs
 ## {{ ansible_managed }}
 
-$ModLoad imuxsock		# local system logging
-$ModLoad imklog			# kernel logging support (formerly by rklogd)
+module(load="imklog")			# local kernel log
+module(load="imudp")			# UDP syslog
+module(load="imrelp")			# rsyslog reliable transport
 
-$ModLoad imudp			# UDP syslog reception from sysklogd
-$UDPServerRun 514
-
-$ModLoad imrelp			# rsyslog-specific reliable transport
-
+input(type="imudp" port="514" ruleset="fromUDP")
 input(type="imrelp" port="{{ rsyslog_port }}")
-
-$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 
 $RepeatedMsgReduction on	# Filter duplicated messages
 
@@ -22,8 +17,6 @@ $FileGroup adm
 $FileCreateMode 0640
 $DirCreateMode 0755
 $Umask 0022
-#$PrivDropToUser daemon
-#$PrivDropToGroup daemon
 
 $WorkDirectory /var/spool/rsyslog	# Location of spool files
 
