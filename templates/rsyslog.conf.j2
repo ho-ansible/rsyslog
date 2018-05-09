@@ -7,4 +7,5 @@ module(load="imklog")
 module(load="omrelp")
 
 *.*     -{{ rsyslog_file }};RSYSLOG_TraditionalFileFormat
-*.*     :omrelp:{{ rsyslog_server }}:{{ rsyslog_port }}
+
+action(type="omrelp" target="{{ rsyslog_server }}" port="{{ rsyslog_port }}")
