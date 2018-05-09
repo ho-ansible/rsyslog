@@ -2,9 +2,9 @@
 ## Uploads logs remotely to {{ rsyslog_server }}
 ## {{ ansible_managed }}
 
-$ModLoad imuxsock
-$ModLoad imklog
-$ModLoad omrelp
+module(load="imuxsock")
+module(load="imklog")
+module(load="omrelp")
 
 *.*     -{{ rsyslog_file }};RSYSLOG_TraditionalFileFormat
 *.*     :omrelp:{{ rsyslog_server }}:{{ rsyslog_port }}
