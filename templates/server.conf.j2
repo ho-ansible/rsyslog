@@ -1,41 +1,35 @@
 ## /etc/rsyslog.conf
-## Server receives remote logs
-## {{ ansible_managed }}
+# Server receives remote logs
+# {{ ansible_managed }}
 
-$ModLoad imuxsock		# local system logging
-$ModLoad imklog			# kernel logging support (formerly by rklogd)
+# Load modules
+module(load="imklog")	# kernel ring buffer
+module(load="imuxsock")	# /run/systemd/journal/syslog
+module(load="imudp")	# UDP syslog
+module(load="imtcp")	# TCP syslog
+module(load="imrelp")	# rsyslog reliable transport
 
-$ModLoad imudp			# UDP syslog reception from sysklogd
-$UDPServerRun 514
+# Input
+input(type="imudp"  address="{{ rsyslog_server }}" port="514")
+input(type="imtcp"  address="{{ rsyslog_server }}" port="514")
+input(type="imrelp" port="{{ rsyslog_port }}")
 
-$ModLoad imrelp			# rsyslog-specific reliable transport
-$InputRELPServerRun {{ rsyslog_port }}
+# Default permissions for created log files
+module(load="builtin:omfile" DirCreateMode="0750" FileCreateMode="0640"
+  DirGroup="adm" FileGroup="adm")
 
-$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
-
-$RepeatedMsgReduction on	# Filter duplicated messages
-
-# Set the default permissions for all log files.
-$FileOwner root
-$FileGroup adm
-$FileCreateMode 0640
-$DirCreateMode 0755
-$Umask 0022
-#$PrivDropToUser daemon
-#$PrivDropToGroup daemon
-
-$WorkDirectory /var/spool/rsyslog	# Location of spool files
-
-# Output Rules
+# Default ruleset
 
 {% for tag in rsyslog_tags %}
-:syslogtag, contains, "{{ tag }}"	/var/log/{{ tag }}.log
-& ~
+:programname, contains, "{{ tag }}"	/var/log/{{ tag }}.log
+& stop
 {% endfor %}
 
 {% for tag, rule in rsyslog_rules.iteritems() %}
-{{ rule }}			/var/log/{{ tag }}.log
+{{ rule }}	/var/log/{{ tag }}.log
+& stop
 {% endfor %}
 
-# Default
-*.*				-{{ rsyslog_file }}
+#*.* {{ rsyslog_file }}
+template(name="logfile" type="string" string="/var/log/%HOSTNAME%/%programname%.log")
+action(type="omfile" dynafile="logfile")
