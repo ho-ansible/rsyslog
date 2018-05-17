@@ -6,5 +6,5 @@ module(load="imklog")	# kernel ring buffer
 module(load="imuxsock")	# /run/systemd/journal/syslog
 module(load="omrelp")	# rsyslog reliable transport
 
-action(type="omfile" file="{{ rsyslog_file }}")
+*.* {{ rsyslog_file }}
 action(type="omrelp" target="{{ rsyslog_server }}" port="{{ rsyslog_port }}")
