@@ -7,4 +7,7 @@ module(load="imuxsock")	# /run/systemd/journal/syslog
 module(load="omrelp")	# rsyslog reliable transport
 
 *.* {{ rsyslog_file }}
-action(type="omrelp" target="{{ rsyslog_server }}" port="{{ rsyslog_port }}")
+
+{% for host in rsyslog_servers %}
+action(type="omrelp" target="{{ host }}" port="{{ rsyslog_port }}")
+{% endfor %}
