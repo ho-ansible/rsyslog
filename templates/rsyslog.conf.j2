@@ -7,4 +7,5 @@ module(load="imuxsock")	# /run/systemd/journal/syslog
 module(load="omrelp")	# rsyslog reliable transport
 
 *.* {{ rsyslog_file }}
-action(type="omrelp" target="{{ rsyslog_server }}" port="{{ rsyslog_port }}")
+action(type="omrelp" target="{{ rsyslog_server }}" port="{{ rsyslog_port }}"
+  action.reportsuspension="off" queue.type="LinkedList")
