@@ -25,7 +25,7 @@ module(load="builtin:omfile" DirCreateMode="0750" FileCreateMode="0640"
 & stop
 {% endfor %}
 
-{% for tag, rule in rsyslog_rules.iteritems() %}
+{% for tag, rule in rsyslog_rules.items() %}
 {{ rule }}	/var/log/{{ tag }}.log
 & stop
 {% endfor %}
