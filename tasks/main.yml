@@ -12,7 +12,7 @@
   tags:
     - config
   template:
-    src: "{{ (rsyslog_server_group in group_names) | ternary('server', 'rsyslog') }}.conf.j2"
+    src: "{{ rsyslog_role }}.conf.j2"
     dest: /etc/rsyslog.conf
   notify: restart rsyslog
 
