@@ -27,6 +27,7 @@
   file:
     path: "{{ rsyslog_dropin }}"
     state: directory
+  when: rsyslog_role == 'server'
 
 - name: rsyslog | firewall config
   tags:
@@ -37,6 +38,7 @@
   notify:
     - daemon-reload
     - restart rsyslog
+  when: rsyslog_role == 'server'
 
 - name: rsyslog | service
   tags:
