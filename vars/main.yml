@@ -1,0 +1,9 @@
+---
+rsyslog_dropin: /etc/systemd/system/rsyslog.service.d
+rsyslog_server_ports:
+  - prot: tcp
+    port: 514
+  - prot: udp
+    port: 514
+  - prot: tcp
+    port: 2514

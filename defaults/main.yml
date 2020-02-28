@@ -7,5 +7,6 @@ rsyslog_file: /var/log/messages
 rsyslog_server_group: log
 
 # only used by server:
+rsyslog_server_iface: lo
 rsyslog_tags: []
 rsyslog_rules: {}

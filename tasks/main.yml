@@ -23,6 +23,16 @@
     src: logrotate.j2
     dest: /etc/logrotate.d/rsyslog
 
+- name: rsyslog | firewall config
+  tags:
+    - config
+  template:
+    src: iptables.conf.j2
+    dest: "{{ rsyslog_dropin }}/iptables.conf"
+  notify:
+    - daemon-reload
+    - restart rsyslog
+
 - name: rsyslog | service
   tags:
   - service
