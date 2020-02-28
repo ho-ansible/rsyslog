@@ -2,7 +2,7 @@
 # Firewall rules for rsyslog service
 {% set ipt = '/usr/sbin/iptables' %}
 {% set ch = 'in_rsyslog' %}
-{% set in_rule = '-i ' ~ rsyslog_server_iface ~ ' -j ' ~ ch %}
+{% set in_rule = '-i ' ~ rsyslog_listen ~ ' -j ' ~ ch %}
 
 [Service]
 # Setup ref to chain

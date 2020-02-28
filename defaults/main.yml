@@ -7,6 +7,6 @@ rsyslog_port: 2514
 rsyslog_file: /var/log/messages
 
 # only used by server:
-rsyslog_server_iface: lo
+rsyslog_listen: lo
 rsyslog_tags: []
 rsyslog_rules: {}

@@ -11,7 +11,7 @@ Only tested on Debian stable, for now.
 + `rsyslog_file` (default: /var/log/messages): local file to copy logs to
 
 ### Role Variables for Server
-+ `rsyslog_server_iface` (default: lo): network interface on which to listen
++ `rsyslog_listen` (default: lo): network interface on which to listen
 + `rsyslog_tags` (default: none): list of systemd services for which logs should be split into separate files
 + `rsyslog_rules` (default: none): dict of custom rules
 
