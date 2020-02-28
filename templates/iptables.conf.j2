@@ -2,7 +2,7 @@
 # Firewall rules for rsyslog service
 {% set ipt = '/usr/sbin/iptables' %}
 {% set ch = 'in_rsyslog' %}
-{% set in_rule = '-i ' ~ rsyslog_server_iface ' -j ' ~ ch %}
+{% set in_rule = '-i ' ~ rsyslog_server_iface ~ ' -j ' ~ ch %}
 
 [Service]
 # Setup ref to chain
@@ -11,8 +11,8 @@ ExecStartPre=!{{ ipt }} -F {{ ch }}
 ExecStartPre=!-{{ ipt }} -D INPUT {{ in_rule }}
 ExecStartPre=!{{ ipt }} -A INPUT {{ in_rule }}
 
-{% for (prot, port) in rsyslog_server_ports %}
-ExecStartPre=!{{ ipt }} -A {{ ch }} -p {{ prot }} --dport {{ port }} -j ACCEPT
+{% for item in rsyslog_server_ports %}
+ExecStartPre=!{{ ipt }} -A {{ ch }} -p {{ item.prot }} --dport {{ item.port }} -j ACCEPT
 {% endfor %}
 
 # Cleanup: unref, flush, delete

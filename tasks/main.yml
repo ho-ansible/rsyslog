@@ -23,6 +23,11 @@
     src: logrotate.j2
     dest: /etc/logrotate.d/rsyslog
 
+- name: rsyslog | systemd service drop-in dir
+  file:
+    path: "{{ rsyslog_dropin }}"
+    state: directory
+
 - name: rsyslog | firewall config
   tags:
     - config
