@@ -25,7 +25,7 @@
 
 - name: rsyslog | systemd service drop-in dir
   file:
-    path: "{{ rsyslog_dropin }}"
+    path: "{{ rsyslog_dropin | dirname }}"
     state: directory
   when: rsyslog_role == 'server'
 
@@ -34,7 +34,7 @@
     - config
   template:
     src: iptables.conf.j2
-    dest: "{{ rsyslog_dropin }}/iptables.conf"
+    dest: "{{ rsyslog_dropin }}"
   notify:
     - daemon-reload
     - restart rsyslog
