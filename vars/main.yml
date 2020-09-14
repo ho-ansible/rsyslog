@@ -1,5 +1,5 @@
 ---
-rsyslog_dropin: /etc/systemd/system/rsyslog.service.d/iptables.conf
+rsyslog_iptables_conf : /etc/systemd/system/rsyslog.service.d/iptables.conf
 rsyslog_server_ports:
   - prot: tcp
     port: 514

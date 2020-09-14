@@ -23,9 +23,9 @@
     src: logrotate.j2
     dest: /etc/logrotate.d/rsyslog
 
-- name: rsyslog | systemd service drop-in dir
+- name: rsyslog | firewall config dir
   file:
-    path: "{{ rsyslog_dropin | dirname }}"
+    path: "{{ rsyslog_iptables_conf | dirname }}"
     state: directory
   when: rsyslog_role == 'server'
 
@@ -34,7 +34,7 @@
     - config
   template:
     src: iptables.conf.j2
-    dest: "{{ rsyslog_dropin }}"
+    dest: "{{ rsyslog_iptables_conf }}"
   notify:
     - daemon-reload
     - restart rsyslog
