@@ -1,0 +1,11 @@
+#! /usr/bin/env ansible-playbook
+# Uninstall rsyslog system logger
+---
+- name: rsyslog | uninstall
+  hosts: all
+  tasks:
+  - include_role:
+      name: rsyslog
+      tasks_from: uninstall.yml
+    tags:
+    - rsyslog

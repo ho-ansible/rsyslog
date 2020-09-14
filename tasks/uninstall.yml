@@ -1,0 +1,22 @@
+---
+- name: rsyslog | disable services
+  service:
+    name: rsyslog
+    state: stopped
+    enabled: no
+
+- name: rsyslog | uninstall packages
+  package:
+    name: 
+    - rsyslog-relp
+    - rsyslog
+    state: absent
+
+- name: rsyslog | remove config
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+  - /etc/rsyslog.conf
+  - /etc/logrotate.d/rsyslog
+  - "{{ rsyslog_iptables_conf | dirname }}"

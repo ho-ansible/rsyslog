@@ -1,0 +1,11 @@
+#! /usr/bin/env ansible-playbook
+# Configure rsyslog system logger
+---
+- name: rsyslog | system logger
+  hosts: all
+  roles:
+  - role: rsyslog
+    tags:
+    - rsyslog
+    - syslog
+    - log
