@@ -2,15 +2,15 @@
 
 - name: rsyslog | packages
   tags:
-    - package
+  - package
   package:
     name: 
-      - rsyslog
-      - rsyslog-relp
+    - rsyslog
+    - rsyslog-relp
 
 - name: rsyslog | config
   tags:
-    - config
+  - config
   template:
     src: "{{ rsyslog_role }}.conf.j2"
     dest: /etc/rsyslog.conf
@@ -18,7 +18,7 @@
 
 - name: rsyslog | logrotate config
   tags:
-    - logrotate
+  - logrotate
   template:
     src: logrotate.j2
     dest: /etc/logrotate.d/rsyslog
@@ -31,13 +31,13 @@
 
 - name: rsyslog | firewall config
   tags:
-    - config
+  - config
   template:
     src: iptables.conf.j2
     dest: "{{ rsyslog_iptables_conf }}"
   notify:
-    - daemon-reload
-    - restart rsyslog
+  - daemon-reload
+  - restart rsyslog
   when: rsyslog_role == 'server'
 
 - name: rsyslog | service
