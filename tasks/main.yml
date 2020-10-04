@@ -1,5 +1,4 @@
 ---
-
 - name: rsyslog | packages
   tags:
   - package
