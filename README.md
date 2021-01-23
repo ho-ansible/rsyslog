@@ -20,7 +20,7 @@ Only tested on Debian stable, for now.
 + `uninstall.yml`: remove dnsmasq. Run before removing config from inventory.
 
 ## Dependencies
-None.
++ [ho-ansible.systemd](https://github.com/ho-ansible/systemd)
 
 ## License
 + Ansible role licensed [MIT](LICENSE)
