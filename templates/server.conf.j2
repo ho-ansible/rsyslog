@@ -10,8 +10,8 @@ module(load="imtcp")	# TCP syslog
 module(load="imrelp")	# rsyslog reliable transport
 
 # Input
-input(type="imudp"  address="{{ rsyslog_server }}" port="514")
-input(type="imtcp"  address="{{ rsyslog_server }}" port="514")
+input(type="imudp"  port="514")
+input(type="imtcp"  port="514")
 input(type="imrelp" port="{{ rsyslog_port }}")
 
 # Default permissions for created log files
