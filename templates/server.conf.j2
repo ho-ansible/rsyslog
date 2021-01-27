@@ -10,9 +10,10 @@ module(load="imtcp")	# TCP syslog
 module(load="imrelp")	# rsyslog reliable transport
 
 # Input
-input(type="imudp"  port="514")
-input(type="imtcp"  port="514")
-input(type="imrelp" port="{{ rsyslog_port }}")
+{% set addr_ip = 'address="' ~ hostvars[inventory_hostname]['ansible_' ~ rsyslog_interface].ipv4.address ~ '"' if rsyslog_interface else '' %}
+input(type="imudp"  {{ addr_ip }} port="514")
+input(type="imtcp"  {{ addr_ip }} port="514")
+input(type="imrelp" {{ addr_ip }} port="{{ rsyslog_port }}")
 
 # Default permissions for created log files
 module(load="builtin:omfile" DirCreateMode="0750" FileCreateMode="0640"
