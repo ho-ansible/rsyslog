@@ -31,6 +31,5 @@ module(load="builtin:omfile" DirCreateMode="0750" FileCreateMode="0640"
 & stop
 {% endfor %}
 
-#*.* {{ rsyslog_file }}
-template(name="logfile" type="string" string="/var/log/%HOSTNAME%/%programname%.log")
+template(name="logfile" type="string" string="{{ rsyslog_host_pattern }}")
 action(type="omfile" dynafile="logfile")

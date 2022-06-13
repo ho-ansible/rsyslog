@@ -10,6 +10,8 @@ Only tested on Debian stable, for now.
 + `rsyslog_server` (default: localhost): DNS name or IP address to send RELP logs to
 + `rsyslog_port` (default: 2514): port to send RELP messages to
 + `rsyslog_file` (default: /var/log/messages): local file to copy logs to
++ `rsyslog_host_pattern` (default: `/var/log/%HOSTNAME%/%programname%.log`):
+  where to store remote logs
 
 ### Role Variables for Server
 + `rsyslog_interface` (default: lo): network interface on which to add firewall rules,
