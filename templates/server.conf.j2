@@ -10,7 +10,7 @@ module(load="imtcp")	# TCP syslog
 module(load="imrelp")	# rsyslog reliable transport
 
 # Input
-{% set addr_ip = 'address="' ~ hostvars[inventory_hostname]['ansible_' ~ rsyslog_interface].ipv4.address ~ '"' if rsyslog_interface else '' %}
+{% set addr_ip = 'address="' ~ ansible_facts[rsyslog_interface].ipv4.address ~ '"' if rsyslog_interface else '' %}
 input(type="imudp"  {{ addr_ip }} port="514")
 input(type="imtcp"  {{ addr_ip }} port="514")
 input(type="imrelp" {{ addr_ip }} port="{{ rsyslog_port }}")
